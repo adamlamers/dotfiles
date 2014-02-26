@@ -160,21 +160,6 @@ let &t_Co=256
 let &t_AF="\e[38;5;%dm"
 let &t_AB="\e[48;5;%dm"
 
-"set tags for omnicppcomplete
-set tags+=~/.vim/tags/stl_cpp
-set tags+=~/.vim/tags/sqlite3
-set tags+=~/.vim/tags/rapidjson
-set tags+=~/.vim/tags/curl
-set tags+=~/.vim/tags/cstdlib
-
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1      
-let OmniCpp_ShowAccess = 1      
-let OmniCpp_MayCompleteDot = 1      
-let OmniCpp_MayCompleteArrow = 1      
-let OmniCpp_MayCompleteScope = 1      
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-
 " build tags of your own project with CTRL+F12      
 " "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>      
 noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>      
