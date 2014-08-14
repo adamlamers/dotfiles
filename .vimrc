@@ -1,12 +1,12 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer: 
+" Maintainer:
 "       Amir Salihefendic
 "       http://amix.dk - amix@amix.dk
 "
-" Version: 
+" Version:
 "       5.0 - 29/05/12 15:43:36
 "
-" Blog_post: 
+" Blog_post:
 "       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
 "
 " Awesome_version:
@@ -19,7 +19,7 @@
 " Syntax_highlighted:
 "       http://amix.dk/vim/vimrc.html
 "
-" Raw_version: 
+" Raw_version:
 "       http://amix.dk/vim/vimrc.txt
 "
 " Sections:
@@ -57,22 +57,30 @@ set nocompatible
 "Allow fancy symbols for powerline
 let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled=1
-"let g:airline_section_b = '%{strftime("%c")}'
-
 let g:fuf_keyOpenTabpage='<CR>'
+let g:SuperTabContextDefaultCompletionType="<c-x><c-u>"
 
 " Set up Vundle
 filetype off
 
+set cino+=L0
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+"Managed bundles go here:
 Bundle 'gmarik/vundle'
 Bundle 'L9'
 Bundle 'FuzzyFinder'
 Bundle 'bling/vim-airline'
-
-"Managed bundles go here:
+Bundle 'ervandew/supertab'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'tpope/vim-surround'
+Bundle 'aperezdc/vim-template'
 
 filetype plugin indent on
 
@@ -80,8 +88,15 @@ filetype plugin indent on
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+nnoremap <Space> <Nop>
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let g:email = "adam@scanalyticsinc.com"
+let g:username = "Adam Lamers"
+
+let g:UltiSnipsExpandTrigger="<c-x>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -116,23 +131,23 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-"set lazyredraw "Breaks :ls and :marks in current version 
+"set lazyredraw "Breaks :ls and :marks in current version
 
 " For regular expressions turn magic on
 set magic
 
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -147,7 +162,7 @@ set tm=500
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 
 set nocp
 filetype plugin on
@@ -160,9 +175,20 @@ let &t_Co=256
 let &t_AF="\e[38;5;%dm"
 let &t_AB="\e[48;5;%dm"
 
-" build tags of your own project with CTRL+F12      
-" "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>      
-noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>      
+"clang_complete variables
+let g:clang_library_path='/usr/lib/llvm-3.2/lib/'
+let g:clang_auto_select=1
+let g:clang_hl_errors=1
+let g:clang_auto_select=1
+let g:clang_complete_macros=1
+let g:clang_periodic_quickfix=1
+let g:clang_close_preview=1
+
+set nowrap
+
+" build tags of your own project with CTRL+F12
+" "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
 inoremap <F12> <Esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
 
 colorscheme monokai
@@ -210,7 +236,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+"set wrap "Wrap lines
 
 set path=$PWD/**
 
@@ -253,7 +279,7 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
+map <leader>tm :tabmove
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -262,7 +288,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -285,7 +311,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ [%P]\ M%m\ %=%-5y\ %-5{&ff}
+set statusline=\ %{HasPaste()}%F%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ [%P]\ M%m\ %{fugitive#statusline()}%=%-5y\ %-5{&ff}
 
 set cpoptions+=$
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -315,6 +341,9 @@ func! DeleteTrailingWS()
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+set splitbelow
+set splitright
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -374,7 +403,14 @@ map <leader>q :e ~/buffer<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+"disable arrow keys
+nnoremap <Left> :echoe "USE H"<CR>
+nnoremap <Right> :echoe "USE L"<CR>
+nnoremap <Up> :echoe "USE K"<CR>
+nnoremap <Down> :echoe "USE J"<CR>
 
+"custom command to upload file to pi
+command Uploadpi execute "!scp mat pi@169.254.100.100:~"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -383,7 +419,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction) range
     let l:saved_reg = @"
@@ -406,7 +442,6 @@ function! VisualSelection(direction) range
     let @" = l:saved_reg
 endfunction
 
-
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -414,9 +449,6 @@ function! HasPaste()
     en
     return ''
 endfunction
-
-"custom command to upload file to pi
-command Uploadpi execute "!scp mat adam@adampi:~/crosscompile"
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
