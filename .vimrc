@@ -408,15 +408,15 @@ let g:ycm_enable_diagnostic_signs = 0
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-nnoremap <Space> <Nop>
+nnoremap <Space> <Nop> 
 let mapleader = "\<Space>"
 let g:mapleader = "\<Space>"
 let g:email = "adam@scanalyticsinc.com"
 let g:username = "Adam Lamers"
 
 let g:UltiSnipsExpandTrigger="<c-x>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<c-f>"
+let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 
 nnoremap <Leader>c :split ~/.vim/cheatsheet.txt<cr>
 
