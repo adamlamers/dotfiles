@@ -1,29 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Maintainer:
-"       Amir Salihefendic
-"       http://amix.dk - amix@amix.dk
-"
-" Version:
-"       5.0 - 29/05/12 15:43:36
-"
-" Blog_post:
-"       http://amix.dk/blog/post/19691#The-ultimate-Vim-configuration-on-Github
-"
-" Awesome_version:
-"       Get this config, nice color schemes and lots of plugins!
-"
-"       Install the awesome version from:
-"
-"           https://github.com/amix/vimrc
-"
-" Syntax_highlighted:
-"       http://amix.dk/vim/vimrc.html
-"
-" Raw_version:
-"       http://amix.dk/vim/vimrc.txt
-"
 " Sections:
 "    -> General
+"    -> Plugins
 "    -> VIM user interface
 "    -> Colors and Fonts
 "    -> Files and backups
@@ -68,6 +46,9 @@ set cino+=L0
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Managed bundles go here:
 Bundle 'gmarik/vundle'
 Bundle 'L9'
@@ -81,22 +62,12 @@ Bundle 'honza/vim-snippets'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-surround'
 Bundle 'aperezdc/vim-template'
+Bundle 'jaxbot/semantic-highlight.vim'
+Bundle 'airblade/vim-gitgutter'
 
 filetype plugin indent on
 
 " End Vundle Setup
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-nnoremap <Space> <Nop>
-let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
-let g:email = "adam@scanalyticsinc.com"
-let g:username = "Adam Lamers"
-
-let g:UltiSnipsExpandTrigger="<c-x>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -190,6 +161,8 @@ set nowrap
 " "map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 noremap <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
 inoremap <F12> <Esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr>
+noremap <F5> :make<cr>
+inoremap <F5> :make<cr>
 
 colorscheme monokai
 
@@ -410,7 +383,44 @@ nnoremap <Up> :echoe "USE K"<CR>
 nnoremap <Down> :echoe "USE J"<CR>
 
 "custom command to upload file to pi
-command Uploadpi execute "!scp mat pi@169.254.100.100:~"
+command Uploadpi execute "!ssh pi@169.254.100.100 sudo killall mat ; scp mat pi@169.254.100.100:~ ; ssh pi@169.254.100.100 'sudo /home/pi/mat -D'"
+map <leader>u :Uploadpi<cr>
+
+map <leader>j :tnext<cr>
+map <leader>; :tprevious<cr>
+
+map <leader>gg :GitGutterToggle<cr>
+map <leader>gh :GitGutterLineHighlightsToggle<cr>
+
+let g:gitgutter_enabled=1
+let g:gitgutter_realtime=1
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '}{'
+let g:gitgutter_sign_removed = '--'
+highlight clear SignColumn
+highlight GitGutterAdd guibg=green
+highlight GitGutterChange guibg=yellow
+highlight GitGutterDelete guibg=red
+highlight GitGutterChangeDelete guibg=yellow
+"stops youcompleteme from breaking gitgutter
+let g:ycm_enable_diagnostic_signs = 0
+
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+nnoremap <Space> <Nop>
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
+let g:email = "adam@scanalyticsinc.com"
+let g:username = "Adam Lamers"
+
+let g:UltiSnipsExpandTrigger="<c-x>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+nnoremap <Leader>c :split ~/.vim/cheatsheet.txt<cr>
+
+:nnoremap <Leader>s :SemanticHighlightToggle<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
