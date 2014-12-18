@@ -1,6 +1,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+nnoremap <Space> <Nop>
+let mapleader="\<Space>"
+let g:mapleader="\<Space>"
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -59,3 +63,8 @@ let g:UltiSnipsListSnippets="<c-e>"
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" FuzzyFinder config 
+let g:fuf_keyOpenTabpage='<CR>'
+nmap <leader>f :FufFile<cr>
+nmap <leader>b :FufBuffer<cr>

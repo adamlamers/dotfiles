@@ -3,12 +3,12 @@ if filereadable($HOME . "/.vimrc_vundle")
 endif
 set history=700
 
-filetype plugin on
-filetype indent on
-
 nnoremap <Space> <Nop>
 let mapleader="\<Space>"
 let g:mapleader="\<Space>"
+
+filetype plugin on
+filetype indent on
 
 set autoread
 set nocompatible
@@ -57,8 +57,11 @@ set path=$PWD/**
 map j gj
 map k gk
 
+"leader bindings
 map <silent> <leader><cr> :noh<cr>
 map <leader>ba :1,1000 bd!<cr>
+map <leader>q :q<cr>
+map <leader>w :w<cr>
 
 "Return to last position when re-opening file
 autocmd BufReadPost *
