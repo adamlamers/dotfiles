@@ -60,7 +60,8 @@ map k gk
 "leader bindings
 map <silent> <leader><cr> :noh<cr>
 map <leader>ba :1,1000 bd!<cr>
-map <leader>q :q<cr>
+map <leader>q :bd<cr>
+map <leader>qq :q<cr>
 map <leader>w :w<cr>
 
 "Return to last position when re-opening file
@@ -78,7 +79,7 @@ function! HasPaste()
 endfunction
 
 set laststatus=2
-set statusline=\ %{HasPaste()}%F%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ [%P]\ M%m\ %=%-5y\ %-5{&ff}
+set statusline=\ %{HasPaste()}%F%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ [Col\ %v]\ M%m\ %=%-5y\ %-5{&ff}
 
 let g:rehash256=1
 let &t_Co=256
@@ -86,4 +87,37 @@ let &t_AF="\e[38;5;%dm"
 let &t_AB="\e[48;5;%dm"
 colorscheme monokai
 
-"Add additional stuff here
+"change tabs with tab and shift-tab
+nnoremap <tab> gt
+nnoremap <S-tab> gT
+
+set textwidth=100
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+highlight ColorColumn ctermfg=208 ctermbg=Black
+
+function! MarkMargin (on)
+    if exists('b:MarkMargin')
+        try
+            call matchdelete(b:MarkMargin)
+        catch /./
+        endtry
+        unlet b:MarkMargin
+    endif
+    if a:on
+        let b:MarkMargin = matchadd('ColorColumn', '\%120v\s*\S', 120)
+    endif
+endfunction
+
+augroup MarkMargin
+    autocmd!
+    autocmd  BufEnter  *       :call MarkMargin(1)
+    autocmd  BufEnter  *.vp*   :call MarkMargin(0)
+augroup END
+
+"Reverse directions of # and *
+nnoremap # *
+nnoremap * #
+inoremap jk <Esc>
+inoremap kj <Esc>

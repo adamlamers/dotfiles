@@ -17,13 +17,16 @@ Plugin 'gmarik/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'honza/vim-snippets'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'rizzatti/dash.vim'
+Plugin 'vimwiki/vimwiki'
+Plugin 'mattn/calendar-vim'
+Plugin 'kien/ctrlp.vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'mattn/emmet-vim'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -56,15 +59,53 @@ function! g:UltiSnips_Complete()
     return ""
 endfunction
 
+let g:UltiSnipsExpandTrigger="<c-x>"
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
-" this mapping Enter key to <C-y> to chose the current highlight item 
+" this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" FuzzyFinder config 
-let g:fuf_keyOpenTabpage='<CR>'
-nmap <leader>f :FufFile<cr>
-nmap <leader>b :FufBuffer<cr>
+"SimpylFold Config
+let g:SimpylFold_docstring_preview=1
+
+"CtrlP config
+let g:ctrlp_map = '<leader>f'
+nmap <silent> <leader>b :CtrlPBuffer<CR>
+nmap <silent> <leader>r :CtrlPMRU<CR>
+
+"Ranger utility function
+function! RangeChooser()
+    let temp = tempname()
+    " The option "--choosefiles" was added in ranger 1.5.1. Use the next line
+    " with ranger 1.4.2 through 1.5.0 instead.
+    "exec 'silent !ranger --choosefile=' . shellescape(temp)
+    exec 'silent !ranger --choosefiles=' . shellescape(temp)
+    if !filereadable(temp)
+        redraw!
+        " Nothing to read.
+        return
+    endif
+    let names = readfile(temp)
+    if empty(names)
+        redraw!
+        " Nothing to open.
+        return
+    endif
+    " Edit the first item.
+    exec 'tabe ' . fnameescape(names[0])
+    " Add any remaning items to the arg list/buffer list.
+    for name in names[1:]
+        exec 'argadd ' . fnameescape(name)
+    endfor
+    redraw!
+endfunction
+command! -bar RangerChooser call RangeChooser()
+nnoremap <leader>o :<C-U>RangerChooser<CR>
+
+let g:ycm_server_python_interpreter="/usr/local/bin/python2"
+let g:ycm_confirm_extra_conf=0
+
+let g:user_emmet_leader_key="<C-e>"
