@@ -18,4 +18,7 @@ export VISUAL=/usr/local/bin/vim
 bindkey -M viins 'kj' vi-cmd-mode
 bindkey -M viins 'jk' vi-cmd-mode
 
+bindkey -M viins '^a' beginning-of-line
+bindkey -M viins '^e' end-of-line
+
 # Customize to your needs...
