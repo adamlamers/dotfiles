@@ -22,3 +22,6 @@ bindkey -M viins '^a' beginning-of-line
 bindkey -M viins '^e' end-of-line
 
 # Customize to your needs...
+if [ -f /usr/local/bin/server_selector ]; then
+    /bin/bash /usr/local/bin/server_selector
+fi
