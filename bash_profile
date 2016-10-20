@@ -14,6 +14,10 @@ if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
+if [ -f "$(which git)" ] && [ -f ~/.git-completion.bash ]; then
+    . ~/.git-completion.bash
+fi
+
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 export EDITOR=vim
