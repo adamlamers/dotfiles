@@ -10,7 +10,6 @@
     ~/.vimrc: vimrc
     ~/.vimrc_vundle: vimrc_vundle
     ~/.zpreztorc: zpreztorc
-    ~/.zprezto: zprezto
     ~/.zshrc: zshrc
     ~/.bash_profile: bash_profile
     ~/.bash_prompt: bash_prompt
