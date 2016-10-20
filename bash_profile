@@ -6,8 +6,12 @@ if [ -f ~/.bash_prompt ]; then
     . ~/.bash_prompt
 fi
 
-if [ -f ~/.git-completion.bash ]; then
-      . ~/.git-completion.bash
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
 fi
 
 export CLICOLOR=1
@@ -17,8 +21,6 @@ export EDITOR=vim
 function title {
     echo -ne "\033]0;"$*"\007"
 }
-
-source /usr/local/bin/virtualenvwrapper.sh
 
 export HISTFILESIZE=200000
 export HISTSIZE=10000
@@ -70,16 +72,6 @@ function weather() {
 
     curl wttr.in/$LOCATION
 }
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/adam/Downloads/google-cloud-sdk/path.bash.inc ]; then
-  source '/Users/adam/Downloads/google-cloud-sdk/path.bash.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f /Users/adam/Downloads/google-cloud-sdk/completion.bash.inc ]; then
-  source '/Users/adam/Downloads/google-cloud-sdk/completion.bash.inc'
-fi
 
 #Enable ~/.ssh/config host tab completion
 _complete_ssh_hosts ()
