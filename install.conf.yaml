@@ -10,7 +10,11 @@
     ~/.vimrc: vimrc
     ~/.vimrc_vundle: vimrc_vundle
     ~/.zpreztorc: zpreztorc
+    ~/.zprezto: zprezto
     ~/.zshrc: zshrc
+    ~/.bash_profile: bash_profile
+    ~/.bash_prompt: bash_prompt
+    ~/.git-completion.bash: git-completion.bash
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
