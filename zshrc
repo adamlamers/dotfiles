@@ -25,3 +25,8 @@ bindkey -M viins '^e' end-of-line
 if [ -f /usr/local/bin/server_selector ]; then
     /bin/bash /usr/local/bin/server_selector
 fi
+
+#Enable virtualenvwrapper if available
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    . /usr/local/bin/virtualenvwrapper.sh
+fi
