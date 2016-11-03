@@ -21,6 +21,9 @@ bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M viins '^a' beginning-of-line
 bindkey -M viins '^e' end-of-line
 
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 # Customize to your needs...
 if [ -f /usr/local/bin/server_selector ]; then
     /bin/bash /usr/local/bin/server_selector
