@@ -32,6 +32,32 @@ function pwgen() {
     fi
 }
 
+function encrypt() {
+    if which gpg &> /dev/null; then
+        gpg --output $1.gpg --symmetric $1
+        if [ $? -eq 0 ]; then
+            echo "Encrypted file: $1.gpg"
+        else
+            echo "Something went wrong during encryption."
+        fi
+    else
+        echo "Need gpg to encrypt"
+    fi
+}
+
+function decrypt() {
+    if which gpg &> /dev/null; then
+        gpg --output $1.decrypted --decrypt $1
+        if [ $? -eq 0 ]; then
+            echo "Decrypted file: $1.decrypted"
+        else
+            echo "Something went wrong during decryption."
+        fi
+    else
+        echo "Need gpg to decrypt"
+    fi
+}
+
 #################### Project Initialization Tools ###################
 function download_bootstrap() {
     mkdir -p static
