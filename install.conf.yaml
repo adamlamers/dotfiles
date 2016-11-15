@@ -19,6 +19,7 @@
     ~/.git-completion.bash: git-completion.bash
     ~/.dictionary.txt.gz: dictionary.txt.gz
     ~/.common_shell_functions: common_shell_functions
+    ~/.zsh: zsh
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

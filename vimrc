@@ -121,3 +121,10 @@ nnoremap # *
 nnoremap * #
 inoremap jk <Esc>
 inoremap kj <Esc>
+
+"Allow j/k navigation in autocomplete box
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+inoremap <C-F> :compl-filename<CR>
+

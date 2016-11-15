@@ -52,3 +52,15 @@ alias en4ip="ifconfig | grep -Eo '169.254.\d{1,3}.\d{1,3}' | head -n1"
 if [ -f ~/.common_shell_functions ]; then
     . ~/.common_shell_functions
 fi
+
+if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    . ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+fi
