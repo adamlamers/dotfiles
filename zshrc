@@ -15,6 +15,7 @@ bindkey -v
 export EDITOR=/usr/local/bin/vim
 export VISUAL=/usr/local/bin/vim
 
+#Setup custom hotkeys for zsh modes
 bindkey -M viins 'kj' vi-cmd-mode
 bindkey -M viins 'jk' vi-cmd-mode
 
@@ -24,7 +25,6 @@ bindkey -M viins '^e' end-of-line
 bindkey -v
 bindkey '^R' history-incremental-search-backward
 
-# Customize to your needs...
 if [ -f /usr/local/bin/server_selector ]; then
     /bin/bash /usr/local/bin/server_selector
 fi
@@ -44,15 +44,31 @@ if [ -f /Users/adam/google-cloud-sdk/completion.zsh.inc ]; then
 fi
 
 #Custom utilities
-alias ls='ls -lhG'
-alias vi='vim'
-#alias en4ip="ifconfig | grep -A1 en4 | tail -n1 | awk 'BEGIN { FS=\" \" }; {print \$2}'"
+
+#Change ls alias based on host OS
+unamestr=`uname`
+if [[ "$unamestr" == 'Linux' ]]; then
+    alias ls='ls --color=auto'
+elif [[ "$unamestr" == 'Darwin' ]]; then
+    alias ls='ls -lhG'
+fi
+
+#Alias vi to vim if vim exists
+if which vim >/dev/null; then
+    alias vi='vim'
+else
+    #Otherwise alias vi to vim
+    alias vim='vi'
+fi
+
 alias en4ip="ifconfig | grep -Eo '169.254.\d{1,3}.\d{1,3}' | head -n1"
 
+#Bash/zsh common functions
 if [ -f ~/.common_shell_functions ]; then
     . ~/.common_shell_functions
 fi
 
+#Zsh plugins
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
