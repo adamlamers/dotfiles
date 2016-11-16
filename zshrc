@@ -48,7 +48,7 @@ fi
 #Change ls alias based on host OS
 unamestr=`uname`
 if [[ "$unamestr" == 'Linux' ]]; then
-    alias ls='ls --color=auto'
+    alias ls='ls -lh --color=auto'
 elif [[ "$unamestr" == 'Darwin' ]]; then
     alias ls='ls -lhG'
 fi
