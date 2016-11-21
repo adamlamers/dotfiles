@@ -10,6 +10,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+#Source local aliases
+if [[ -f ~/.bash_aliases ]]; then
+    . ~/.bash_aliases
+fi
+
 bindkey -v
 
 export EDITOR=/usr/local/bin/vim
