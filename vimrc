@@ -10,6 +10,7 @@ let g:mapleader="\<Space>"
 filetype plugin on
 filetype indent on
 
+"Auto reload files and enable Vim mode
 set autoread
 set nocompatible
 
@@ -32,6 +33,8 @@ set tm=500
 
 syntax enable
 set nocp
+
+"enable line numbers
 set nu
 
 set encoding=utf8
@@ -47,7 +50,12 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
+"File specific tab settings
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
 set lbr
+
+"Max 100 columns
 set tw=100
 
 set autoindent
@@ -81,6 +89,7 @@ endfunction
 set laststatus=2
 set statusline=\ %{HasPaste()}%F%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l/%L\ [Col\ %v]\ M%m\ %=%-5y\ %-5{&ff}
 
+"Color compatibility with some terminals
 let g:rehash256=1
 let &t_Co=256
 let &t_AF="\e[38;5;%dm"
@@ -91,12 +100,10 @@ colorscheme monokai
 nnoremap <tab> gt
 nnoremap <S-tab> gT
 
-set textwidth=100
-
 autocmd BufWritePre * :%s/\s\+$//e
 
+"Highlight lines that go over 120 columns
 highlight ColorColumn ctermfg=208 ctermbg=Black
-
 function! MarkMargin (on)
     if exists('b:MarkMargin')
         try
@@ -121,10 +128,6 @@ nnoremap # *
 nnoremap * #
 inoremap jk <Esc>
 inoremap kj <Esc>
-
-"Allow j/k navigation in autocomplete box
-inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 
 inoremap <C-F> :compl-filename<CR>
 
