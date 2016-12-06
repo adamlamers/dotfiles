@@ -96,3 +96,21 @@ function weather() {
 
     curl wttr.in/$LOCATION
 }
+
+function fupdatedb() {
+    if [ -f /tmp/flocate.db ]; then
+        rm /tmp/flocate.db
+    fi
+
+    find / 2>/dev/null | gzip > /tmp/flocate.db
+}
+
+function flocate() {
+
+    if [ ! -f /tmp/flocate.db ]; then
+        echo "flocate.db does not exist: run fupdatedb"
+        return -1
+    fi
+
+    zgrep $1 /tmp/flocate.db --color=auto
+}
