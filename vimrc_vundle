@@ -26,6 +26,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'mattn/emmet-vim'
 Plugin 'tpope/vim-surround'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -88,3 +91,7 @@ let g:ycm_server_python_interpreter="/usr/local/bin/python2"
 let g:ycm_confirm_extra_conf=0
 
 let g:user_emmet_leader_key="<C-e>"
+
+"NERDTree settings
+nnoremap <leader>tt :NERDTreeFocus<CR>
+let NERDTreeIgnore = ['__pycache__', '\.pyc$']
