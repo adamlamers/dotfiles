@@ -19,15 +19,11 @@ Plugin 'gmarik/Vundle.vim'
 " plugin on GitHub repo
 " plugin from http://vim-scripts.org/vim/scripts.html
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'rizzatti/dash.vim'
 Plugin 'vimwiki/vimwiki'
-Plugin 'mattn/calendar-vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'mattn/emmet-vim'
 Plugin 'tpope/vim-surround'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'leafgarland/typescript-vim'
 Plugin 'scrooloose/nerdtree'
 
 " All of your Plugins must be added before the following line

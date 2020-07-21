@@ -71,6 +71,7 @@ map <leader>ba :1,1000 bd!<cr>
 map <leader>q :bd<cr>
 map <leader>qq :q<cr>
 map <leader>w :w<cr>
+map <leader>g :NERDTreeToggle<cr>
 
 "Return to last position when re-opening file
 autocmd BufReadPost *
@@ -99,6 +100,7 @@ colorscheme monokai
 "change tabs with tab and shift-tab
 nnoremap <tab> gt
 nnoremap <S-tab> gT
+nnoremap <C-p> :CtrlP<cr>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
@@ -166,3 +168,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
