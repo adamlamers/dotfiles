@@ -119,5 +119,5 @@ function flocate() {
 #################### OS Initialization Tools ###################
 function debian_init() {
     sudo apt-get update
-    sudo apt-get install -y tmux vim curl
+    sudo apt-get install -y tmux vim curl zsh
 }
