@@ -58,20 +58,6 @@ function decrypt() {
     fi
 }
 
-#################### Project Initialization Tools ###################
-function download_bootstrap() {
-    mkdir -p static
-    mkdir -p static/css
-    mkdir -p static/js
-
-    cd static/css
-    wget "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-    cd ../
-    cd js
-    wget "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
-    cd ../..
-}
-
 function init_flask() {
     mkdir -p templates
     touch templates/index.html
@@ -115,9 +101,3 @@ function flocate() {
     zgrep $1 /tmp/flocate.db --color=auto
 }
 
-
-#################### OS Initialization Tools ###################
-function debian_init() {
-    sudo apt-get update
-    sudo apt-get install -y tmux vim curl zsh
-}
