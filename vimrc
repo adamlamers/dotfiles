@@ -64,6 +64,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'neoclide/vim-jsx-improve'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 
 
@@ -109,7 +110,7 @@ let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.egg-info$', 'node_modules']
 
 "CtrlP config
 nmap <C-E> :CtrlPBuffer<CR>
-let g:ctrlp_working_path_mode= 'ra'
+let g:ctrlp_working_path_mode= 0
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|\.egg-info|\.pyc'
 
 
@@ -121,3 +122,6 @@ nmap <C-G> :Ag<CR>
 
 "Wildignore
 set wildignore+=*/node_modules/*,*/__pycache__/*,*.pyc,*.egg-info
+
+"OSCYank settings
+autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is 'a' | execute 'OSCYankReg a' | endif
