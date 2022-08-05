@@ -13,6 +13,7 @@ set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
+set background=dark
 
 "File specific tab settings
 autocmd FileType yaml            setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
