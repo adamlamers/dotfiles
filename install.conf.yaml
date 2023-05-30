@@ -9,7 +9,6 @@
     ~/.vim: vim
     ~/.dotfile_util: util
     ~/.vimrc: vimrc
-    ~/.vimrc_vundle: vimrc_vundle
     ~/.zpreztorc: zpreztorc
     ~/.zshrc: zshrc
     ~/.zprezto: prezto
