@@ -33,12 +33,4 @@ My Vim setup designed to work lightweight on servers or heavyweight for personal
 - Monokai color scheme
 - Some standard sanity settings
 
-If you install plugins inside vim with `:BundleInstall` you'll get:
-- SimpylFold
-- VimWiki
-- CalendarVim
-- ctrlp
-- emmet
-- vim-surround
-
-Add plugins to the Vundle config in `vimrc_vundle`
+vim will try to bootstrap vim-plug with cURL and install plugins on launch
