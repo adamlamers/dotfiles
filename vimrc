@@ -49,7 +49,6 @@ fun! TrimWhitespace()
 endfun
 autocmd BufWritePre * call TrimWhitespace()
 
-
 set cmdheight=2
 set updatetime=300
 set shortmess+=c
@@ -111,7 +110,7 @@ let g:SimpylFold_docstring_preview=1
 
 "NERDTree keybinds
 nmap <leader>g :NERDTreeFind<CR>
-nmap <leader>tt :NERDTreeFocus<CR>
+nmap <leader>e :NERDTreeFocus<CR>
 let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.egg-info$', 'node_modules']
 
 "CtrlP config
