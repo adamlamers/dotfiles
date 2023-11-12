@@ -2,21 +2,39 @@
 # This file is for shell functions common between shells: zsh, bash
 ###################################################################
 
-function local_pi() {
-LOCAL_PI_IP=$(en4ip)
-ssh -b $LOCAL_PI_IP pi@169.254.100.100
+# Uses OSC52 to attempt to copy to client's clipboard through the terminal
+function osc52() {
+    CB_DATA="$@"
+    echo -en "\033]52;c;$(echo $CB_DATA | base64)\a"
+}
+
+function osc52_file() {
+    echo -en "\033]52;c;$(base64 $1)\a"
 }
 
 function pubkey() {
-    if [ -f ~/.ssh/id_rsa.pub ]; then
+    PUBKEY_PATH="$HOME/.ssh/id_rsa.pub"
+    SUCCESS=0
+    if [ -f "$PUBKEY_PATH" ]; then
         if which pbcopy &> /dev/null; then
-            cat ~/.ssh/id_rsa.pub | pbcopy
-            echo "Copied public key using pbcopy"
-        else
+            cat $PUBKEY_PATH | pbcopy
+            SUCCESS=1
+            echo "Copied public key [$PUBKEY_PATH] using pbcopy"
+        fi
+
+        if [ "$SUCCESS" = "0" ]; then
+            osc52_file $PUBKEY_PATH
+            echo "Copied public key [$PUBKEY_PATH] using osc52"
+            SUCCESS=1
+        fi
+
+        if [ "$SUCCESS" = "0" ]; then
             echo "pbcopy not available - printing public key"
             echo
-            cat ~/.ssh/id_rsa.pub
+            cat $PUBKEY_PATH
         fi
+    else
+        echo "$PUBKEY_PATH does not exist"
     fi
 }
 
@@ -58,25 +76,6 @@ function decrypt() {
     fi
 }
 
-function init_flask() {
-    mkdir -p templates
-    touch templates/index.html
-    curl "https://raw.githubusercontent.com/lewagon/bootstrap-boilerplate/gh-pages/index.html" > templates/index.html
-    FLASK_TEMPLATE="from flask import Flask, render_template, request
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.debug = True
-    app.run()
-"
-    echo "$FLASK_TEMPLATE" > app.py
-}
-
 function weather() {
     LOCATION=milwaukee
 
@@ -101,3 +100,93 @@ function flocate() {
     zgrep $1 /tmp/flocate.db --color=auto
 }
 
+function install_pyenv() {
+    if [ ! -d "$HOME/.pyenv" ]; then
+        curl https://pyenv.run | bash
+    else
+        echo "pyenv is already installed"
+        echo "remove ~/.pyenv to reinstall"
+    fi
+
+    echo "Installing python 3.9"
+    pyenv install 3.9 -s
+
+    echo "Creating sandbox virtualenv"
+    pyenv virtualenv sandbox
+}
+
+function install_nvm() {
+    if [ ! -f "$HOME/.nvm/nvm.sh" ]; then
+        PROFILE=/dev/null curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+    else
+        echo "nvm is already installed"
+    fi
+    nvm install --lts
+}
+
+function install_rust() {
+    if [ ! -d "$HOME/.rustup" ]; then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    else
+        echo "rustup is already installed. remove ~/.rustup to reinstall"
+    fi
+}
+
+function init_apt() {
+    sudo apt-get install -y \
+        libssl-dev \
+        libncurses-dev \
+        libbz2-dev \
+        libffi-dev \
+        libreadline-dev \
+        libsqlite3-dev \
+        liblzma-dev \
+        python-is-python3 \
+        python3-venv \
+        build-essential \
+        vim \
+        tmux \
+        net-tools \
+        ripgrep \
+}
+
+function init_debian() {
+    init_apt
+    install_pyenv
+    install_nvm
+    install_rust
+}
+
+function autosetup() {
+    if [ "$(uname)" = "Linux" ]; then
+        IS_LINUX="1"
+    else
+        IS_LINUX="0"
+    fi
+
+    if [ "$IS_LINUX" = "1" ]; then
+        which lsb_release > /dev/null 2>&1
+        if [ "$?" = "0" ]; then
+            DETECTED_DISTRO=$(lsb_release -a 2>/dev/null | grep Distributor | awk '{print $3}')
+        else
+            echo "Could not detect distribution"
+        fi
+    fi
+
+    if [ "$IS_LINUX" = "1" ]; then
+        echo "Setting up Linux: $DETECTED_DISTRO"
+
+        case $DETECTED_DISTRO in
+            Ubuntu*)
+                init_debian
+            ;;
+            Debian*)
+                init_debian
+            ;;
+            *)
+                echo "Unknown distribution $DETECTED_DISTRO"
+            ;;
+        esac
+    fi
+    unset IS_LINUX DETECTED_DISTRO
+}

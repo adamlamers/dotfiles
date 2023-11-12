@@ -58,3 +58,4 @@ _complete_ssh_hosts ()
 
 complete -F _complete_ssh_hosts ssh
 complete -F _complete_ssh_hosts scp
+. "$HOME/.cargo/env"

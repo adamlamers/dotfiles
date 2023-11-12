@@ -7,6 +7,24 @@ set nu
 set ignorecase
 filetype plugin indent on
 
+"Space as leader
+nmap <Tab> <Nop>
+nnoremap <Space> <Nop>
+let mapleader="\<Space>"
+let g:mapleader="\<Space>"
+
+"Buffer navigation
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+nnoremap <leader>c :bd<CR>
+nnoremap <leader>C :bd!<CR>
+nnoremap <leader>f :echo expand('%:p')<CR>
+
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Tab settings
 set expandtab
@@ -23,18 +41,13 @@ autocmd FileType typescriptreact setlocal shiftwidth=2 tabstop=2 softtabstop=2 e
 autocmd FileType html            setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab
 autocmd FileType python          setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
-
-"Space as leader
-nmap <Tab> <Nop>
-nnoremap <Space> <Nop>
-let mapleader="\<Space>"
-let g:mapleader="\<Space>"
-
-" Window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" Trim whitespace before write
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+autocmd BufWritePre * call TrimWhitespace()
 
 
 set cmdheight=2
@@ -68,58 +81,48 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 
-
 "Colorscheme
 colorscheme gruvbox-material
 
+"Coc Config
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
-"Coc Keybinds
 nmap <leader>d <Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <slient> gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-imap <C-x> <Plug>(coc-snippets-expand)
+imap <silent> <C-x> <Plug>(coc-snippets-expand)
+inoremap <silent><expr> <C-f> coc#refresh()
+inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#pum#confirm() : <Nop>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 let g:coc_disable_transparent_cursor=1
 
-"Use tab for snippet completion and jumping
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-
-
 "SimpylFold Config
 let g:SimpylFold_docstring_preview=1
-
 
 "NERDTree keybinds
 nmap <leader>g :NERDTreeFind<CR>
 nmap <leader>tt :NERDTreeFocus<CR>
 let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.egg-info$', 'node_modules']
 
-
 "CtrlP config
 nmap <C-E> :CtrlPBuffer<CR>
 let g:ctrlp_working_path_mode= 0
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|\.egg-info|\.pyc'
 
-
 "fzf keybinds
-let $FZF_DEFAULT_COMMAND = 'ag -g "" --ignore="(dist|*.svg)"'
+let $FZF_DEFAULT_COMMAND = 'rg --files -g "!node_modules/"'
 nmap <C-F> :FZF<CR>
-nmap <C-G> :Ag<CR>
-
+nmap <C-G> :Rg<CR>
 
 "Wildignore
 set wildignore+=*/node_modules/*,*/__pycache__/*,*.pyc,*.egg-info
