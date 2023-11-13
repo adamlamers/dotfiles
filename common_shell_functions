@@ -148,6 +148,7 @@ function init_apt() {
         tmux \
         net-tools \
         ripgrep \
+        git \
 }
 
 function init_debian() {
