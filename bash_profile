@@ -18,19 +18,17 @@ if [ -f "$(which git)" ] && [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 fi
 
+if [ -f /usr/bin/vim ]; then
+    export EDITOR=vim
+fi
+
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
-export EDITOR=vim
-
-function title {
-    echo -ne "\033]0;"$*"\007"
-}
-
 export HISTFILESIZE=200000
 export HISTSIZE=10000
 shopt -s histappend
 shopt -s cmdhist
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
 export HISTIGNORE="&:ls:[bf]g:exit"
 
 if [ -f ~/.common_shell_functions ]; then
@@ -58,4 +56,3 @@ _complete_ssh_hosts ()
 
 complete -F _complete_ssh_hosts ssh
 complete -F _complete_ssh_hosts scp
-. "$HOME/.cargo/env"

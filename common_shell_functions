@@ -191,3 +191,7 @@ function autosetup() {
     fi
     unset IS_LINUX DETECTED_DISTRO
 }
+
+function title {
+    echo -ne "\033]0;"$*"\007"
+}
