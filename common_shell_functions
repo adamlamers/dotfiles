@@ -9,7 +9,7 @@ function osc52() {
 }
 
 function osc52_file() {
-    echo -en "\033]52;c;$(base64 $1)\a"
+    echo -en "\033]52;c;$(base64 $1 | tr -d '\n')\a"
 }
 
 function pubkey() {
