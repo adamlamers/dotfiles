@@ -109,13 +109,15 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <leader>d <Plug>(coc-definition)
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>D :CocDiagnostics<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-imap <silent> <C-x> <Plug>(coc-snippets-expand)
 
 " Suggestion navigation
 inoremap <silent><expr> <C-f> coc#refresh()
@@ -139,6 +141,8 @@ let g:SimpylFold_docstring_preview=1
 nmap <leader>g :NERDTreeFind<CR>
 nmap <leader>e :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.egg-info$', 'node_modules']
+" prevent changing buffer in NERDtree window
+autocmd BufWinLeave * if &filetype == 'nerdtree' | call interrupt() | endif
 
 "CtrlP config
 nmap <C-E> :CtrlPBuffer<CR>
