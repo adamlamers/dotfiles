@@ -121,7 +121,11 @@ function install_nvm() {
     else
         echo "nvm is already installed"
     fi
-    nvm install --lts
+
+    if [ -f "$HOME/.nvm/nvm.sh" ]; then
+        . "$HOME/nvm/nvm.sh"
+        nvm install --lts
+    fi
 }
 
 function install_rust() {
