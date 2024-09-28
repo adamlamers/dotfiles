@@ -149,6 +149,7 @@ function init_apt() {
         net-tools \
         ripgrep \
         git \
+        zsh
 }
 
 function init_debian() {

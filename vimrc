@@ -123,7 +123,10 @@ nmap <silent> gr <Plug>(coc-references)
 inoremap <silent><expr> <C-f> coc#refresh()
 inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+
 nnoremap <silent> K :call ShowDocumentation()<CR>
+nnoremap <nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "<C-j>"
+nnoremap <nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "<C-k>"
 
 " Symbol renaming
 nmap <leader>rn <Plug>(coc-rename)
