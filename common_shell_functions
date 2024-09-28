@@ -130,7 +130,7 @@ function install_nvm() {
 
 function install_rust() {
     if [ ! -d "$HOME/.rustup" ]; then
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     else
         echo "rustup is already installed. remove ~/.rustup to reinstall"
     fi
