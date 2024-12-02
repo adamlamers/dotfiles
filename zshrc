@@ -11,6 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 bindkey -v
+
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 export HISTSIZE=10000
@@ -63,8 +64,8 @@ fi
 #nvm
 if [ -f "$HOME/.nvm/nvm.sh" ]; then
     export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    alias nvm="unalias nvm; [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"; nvm $@" # lazy load nvm so shells don't take forever
 fi
 
 #rust
