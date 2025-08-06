@@ -4,6 +4,9 @@
 
 - clean: ['~']
 
+- create:
+  - ~/.local/share/nvim/site/autoload/
+
 - link:
     ~/.dotfiles: ''
     ~/.vim: vim
