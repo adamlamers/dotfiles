@@ -19,6 +19,7 @@
     ~/.dictionary.txt.gz: dictionary.txt.gz
     ~/.common_shell_functions: common_shell_functions
     ~/.zsh: zsh
+    ~/.config/nvim: nvim
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

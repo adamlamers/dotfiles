@@ -1,3 +1,4 @@
+set nu
 set signcolumn=yes
 set updatetime=300
 
