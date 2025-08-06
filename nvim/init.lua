@@ -20,6 +20,23 @@ vim.cmd.source("$HOME/.config/nvim/binds.vim")
 vim.cmd.source("$HOME/.config/nvim/sys.vim")
 vim.cmd.colorscheme("gruvbox-material")
 
+vim.opt.completeopt = {'menu', 'menuone', 'noinsert'}
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'Enable vim.lsp.completion',
+  callback = function(event)
+    local client_id = vim.tbl_get(event, 'data', 'client_id')
+    if client_id == nil then
+      return
+    end
+
+    vim.lsp.completion.enable(true, client_id, event.buf, {autotrigger = true})
+
+    -- Trigger lsp completion manually using Ctrl + Space
+    vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.get()<cr>')
+  end
+})
+
 require("mason").setup()
 
 vim.lsp.enable("pyright")

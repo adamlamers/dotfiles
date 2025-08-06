@@ -20,6 +20,7 @@
     ~/.common_shell_functions: common_shell_functions
     ~/.zsh: zsh
     ~/.config/nvim: nvim
+    ~/.local/share/nvim/site/autoload/plug.vim: local/share/nvim/site/autoload/plug.vim
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]

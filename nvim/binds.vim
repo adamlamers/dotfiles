@@ -36,7 +36,6 @@ autocmd FileType python          setlocal shiftwidth=4 tabstop=4 softtabstop=4 e
 autocmd FileType *               :BufferOrderByBufferNumber
 
 inoremap <expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
-inoremap <C-Space> <Cmd>lua vim.lsp.completion.get()<CR>
 
 nnoremap <silent>]g :lua vim.diagnostic.jump({count=1})<CR>
 nnoremap <silent>[g :lua vim.diagnostic.jump({count=-1})<CR>
