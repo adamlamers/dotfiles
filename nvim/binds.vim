@@ -40,3 +40,5 @@ inoremap <expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
 nnoremap <silent>]g :lua vim.diagnostic.jump({count=1})<CR>
 nnoremap <silent>[g :lua vim.diagnostic.jump({count=-1})<CR>
 nnoremap <silent><C-f> :FzfLua files<CR>
+
+tnoremap <Esc> <C-\><C-n>

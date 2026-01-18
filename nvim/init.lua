@@ -16,6 +16,7 @@ Plug("mason-org/mason.nvim")
 Plug("mason-org/mason-lspconfig.nvim")
 Plug("ibhagwan/fzf-lua")
 Plug("nvim-treesitter/nvim-treesitter")
+Plug("ray-x/lsp_signature.nvim")
 Plug_End()
 
 vim.cmd.source("$HOME/.config/nvim/binds.vim")
@@ -53,6 +54,13 @@ require("mason-lspconfig").setup({
 
 -- nvim-tree
 require("nvim-tree").setup({
+  sync_root_with_cwd = true,
+  actions = {
+    change_dir = {
+      enable = true,
+      global = true,
+    }
+  },
   sort = {
     sorter = "case_sensitive",
   },
@@ -76,4 +84,12 @@ require('nvim-treesitter').setup({
     highlight = {
         enable = true,
     },
+})
+
+require("lsp_signature").setup({
+    hint_prefix = {
+      above = "↙ ",
+      current = "← ",
+      below = "↖ ",
+  }
 })
