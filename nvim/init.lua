@@ -13,7 +13,9 @@ Plug("sainnhe/gruvbox-material")
 Plug("romgrk/barbar.nvim")
 Plug("neovim/nvim-lspconfig")
 Plug("mason-org/mason.nvim")
+Plug("mason-org/mason-lspconfig.nvim")
 Plug("ibhagwan/fzf-lua")
+Plug("nvim-treesitter/nvim-treesitter")
 Plug_End()
 
 vim.cmd.source("$HOME/.config/nvim/binds.vim")
@@ -39,10 +41,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require("mason").setup()
 
-vim.lsp.enable("pyright")
--- vim.keymap.set("i", "<C-Space>", function()
---    vim.lsp.completion.get()
--- end)
+require("mason-lspconfig").setup({
+    automatic_enable = true,
+    ensure_installed = {
+        "ty",
+        "lua_ls",
+        "ruff",
+        "rust_analyzer"
+    },
+})
 
 -- nvim-tree
 require("nvim-tree").setup({
@@ -58,4 +65,15 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = true,
   },
+})
+
+require('nvim-treesitter.configs').setup({
+    ensure_installed = {
+        "python",
+        "typescript",
+    },
+    auto_install = true,
+    highlight = {
+        enable = true,
+    },
 })
