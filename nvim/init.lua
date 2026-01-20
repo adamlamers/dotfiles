@@ -9,9 +9,9 @@ local Plug_End = vim.fn["plug#end"]
 Plug_Begin()
 Plug("nvim-tree/nvim-web-devicons")
 Plug("nvim-tree/nvim-tree.lua")
+Plug("neovim/nvim-lspconfig")
 Plug("sainnhe/gruvbox-material")
 Plug("romgrk/barbar.nvim")
-Plug("neovim/nvim-lspconfig")
 Plug("mason-org/mason.nvim")
 Plug("mason-org/mason-lspconfig.nvim")
 Plug("nvim-treesitter/nvim-treesitter")
@@ -50,7 +50,8 @@ require("mason-lspconfig").setup({
         "ty",
         "lua_ls",
         "ruff",
-        "rust_analyzer"
+        "rust_analyzer",
+        "ts_ls",
     },
 })
 
@@ -129,20 +130,16 @@ require("snacks").setup({
     explorer = {
         enabled = true,
         replace_netrw = true,
+        reveal = false,
     },
+    bufdelete = { enabled = true },
 })
 
 require("conform").setup({
     formatters_by_ft = {
         lua = { "stylua" },
         go = { "goimports", "gofmt" },
-        python = function(bufnr)
-            if require("conform").get_formatter_info("ruff_format", bufnr).available then
-                return { "ruff_format" }
-            else
-                return { "isort", "black" }
-            end
-        end,
+        python = { "ruff_format", "ruff_organize_imports", "ruff_fix" },
         ["*"] = { "codespell" },
         ["_"] = { "trim_whitespace" },
     },

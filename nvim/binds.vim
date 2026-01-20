@@ -1,4 +1,5 @@
 nnoremap <Space> <Nop>
+nnoremap <C-c> <ESC>
 let mapleader="\<Space>"
 let g:mapleader="\<Space>"
 
@@ -8,8 +9,7 @@ nnoremap <silent><leader>g :lua Snacks.explorer.reveal()<CR>
 "Buffer navigation
 nnoremap <silent>[b :bprev<CR>
 nnoremap <silent>]b :bnext<CR>
-nnoremap <leader>c :bprev\|bdelete #<CR>
-nnoremap <leader>C :bdelete!<CR>:
+nnoremap <leader>c :lua Snacks.bufdelete()<CR>
 nnoremap <leader>f :echo expand('%:p')<CR>
 
 " Window navigation
@@ -46,5 +46,8 @@ nnoremap <silent>gI    :lua Snacks.picker.lsp_implementations()<CR>
 
 " obsidian.nvim
 " nnoremap <silent><C-o> :Obsidian<CR>
+
+" conform.nvim
+nnoremap <silent>== :lua require("conform").format()<CR>
 
 tnoremap <Esc> <C-\><C-n>
