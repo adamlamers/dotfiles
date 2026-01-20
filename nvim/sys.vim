@@ -4,6 +4,8 @@ set ignorecase
 set smartcase
 
 autocmd CursorHold * lua vim.diagnostic.open_float()
+autocmd BufEnter *.md setlocal conceallevel=2
+autocmd BufWritePre *.md,*.py,*.ts,*.js,*.tsx,*.rs, lua vim.lsp.buf.format()
 
 let g:python_indent = {}
 let g:python_indent.open_paren = "shiftwidth()"

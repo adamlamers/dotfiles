@@ -2,8 +2,8 @@ nnoremap <Space> <Nop>
 let mapleader="\<Space>"
 let g:mapleader="\<Space>"
 
-nnoremap <silent><leader>e :NvimTreeToggle<CR>
-nnoremap <silent><leader>g :NvimTreeFindFile<CR>
+nnoremap <silent><leader>e :lua Snacks.explorer.open()<CR>
+nnoremap <silent><leader>g :lua Snacks.explorer.reveal()<CR>
 
 "Buffer navigation
 nnoremap <silent>[b :bprev<CR>
@@ -37,8 +37,14 @@ autocmd FileType *               :BufferOrderByBufferNumber
 
 inoremap <expr> <CR> pumvisible() ? "<C-y>" : "<CR>"
 
-nnoremap <silent>]g :lua vim.diagnostic.jump({count=1})<CR>
-nnoremap <silent>[g :lua vim.diagnostic.jump({count=-1})<CR>
-nnoremap <silent><C-f> :FzfLua files<CR>
+" snacks.nvim
+nnoremap <silent><C-f> :lua Snacks.picker.smart()<CR>
+nnoremap <silent><C-e> :lua Snacks.picker.buffers()<CR>
+nnoremap <silent>grr   :lua Snacks.picker.lsp_references()<CR>
+nnoremap <silent>gd    :lua Snacks.picker.lsp_definitions()<CR>
+nnoremap <silent>gI    :lua Snacks.picker.lsp_implementations()<CR>
+
+" obsidian.nvim
+" nnoremap <silent><C-o> :Obsidian<CR>
 
 tnoremap <Esc> <C-\><C-n>

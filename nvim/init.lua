@@ -14,30 +14,32 @@ Plug("romgrk/barbar.nvim")
 Plug("neovim/nvim-lspconfig")
 Plug("mason-org/mason.nvim")
 Plug("mason-org/mason-lspconfig.nvim")
-Plug("ibhagwan/fzf-lua")
 Plug("nvim-treesitter/nvim-treesitter")
 Plug("ray-x/lsp_signature.nvim")
+Plug("obsidian-nvim/obsidian.nvim")
+Plug("folke/snacks.nvim")
+Plug("stevearc/conform.nvim")
 Plug_End()
 
 vim.cmd.source("$HOME/.config/nvim/binds.vim")
 vim.cmd.source("$HOME/.config/nvim/sys.vim")
 vim.cmd.colorscheme("gruvbox-material")
 
-vim.opt.completeopt = {'menu', 'menuone', 'noinsert'}
+vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
 
 vim.api.nvim_create_autocmd('LspAttach', {
-  desc = 'Enable vim.lsp.completion',
-  callback = function(event)
-    local client_id = vim.tbl_get(event, 'data', 'client_id')
-    if client_id == nil then
-      return
+    desc = 'Enable vim.lsp.completion',
+    callback = function(event)
+        local client_id = vim.tbl_get(event, 'data', 'client_id')
+        if client_id == nil then
+            return
+        end
+
+        vim.lsp.completion.enable(true, client_id, event.buf, { autotrigger = true })
+
+        -- Trigger lsp completion manually using Ctrl + Space
+        vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.get()<cr>')
     end
-
-    vim.lsp.completion.enable(true, client_id, event.buf, {autotrigger = true})
-
-    -- Trigger lsp completion manually using Ctrl + Space
-    vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.get()<cr>')
-  end
 })
 
 require("mason").setup()
@@ -54,25 +56,25 @@ require("mason-lspconfig").setup({
 
 -- nvim-tree
 require("nvim-tree").setup({
-  sync_root_with_cwd = true,
-  actions = {
-    change_dir = {
-      enable = true,
-      global = true,
-    }
-  },
-  sort = {
-    sorter = "case_sensitive",
-  },
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = true,
-  },
+    sync_root_with_cwd = true,
+    actions = {
+        change_dir = {
+            enable = true,
+            global = true,
+        }
+    },
+    sort = {
+        sorter = "case_sensitive",
+    },
+    view = {
+        width = 30,
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
 })
 
 require('nvim-treesitter').setup({
@@ -88,8 +90,67 @@ require('nvim-treesitter').setup({
 
 require("lsp_signature").setup({
     hint_prefix = {
-      above = "↙ ",
-      current = "← ",
-      below = "↖ ",
-  }
+        above = "↙ ",
+        current = "← ",
+        below = "↖ ",
+    }
+})
+
+require("obsidian").setup({
+    ft = "markdown",
+    legacy_commands = false,
+    workspaces = {
+        {
+            name = "personal",
+            path = "~/notes/personal",
+        },
+        {
+            name = "work",
+            path = "~/notes/work",
+        }
+    },
+})
+
+require("snacks").setup({
+    picker = {
+        enabled = true,
+        sources = {
+            explorer = {
+                win = {
+                    list = {
+                        keys = {
+                            ["o"] = { "confirm", mode = { "n" } },
+                        }
+                    }
+                }
+            }
+        }
+    },
+    explorer = {
+        enabled = true,
+        replace_netrw = true,
+    },
+})
+
+require("conform").setup({
+    formatters_by_ft = {
+        lua = { "stylua" },
+        go = { "goimports", "gofmt" },
+        python = function(bufnr)
+            if require("conform").get_formatter_info("ruff_format", bufnr).available then
+                return { "ruff_format" }
+            else
+                return { "isort", "black" }
+            end
+        end,
+        ["*"] = { "codespell" },
+        ["_"] = { "trim_whitespace" },
+    },
+    default_format_opts = {
+        lsp_format = "fallback",
+    },
+    format_on_save = {
+        lsp_format = "fallback",
+        timeout_ms = 500,
+    },
 })
