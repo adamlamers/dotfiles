@@ -43,6 +43,7 @@ nnoremap <silent><C-e> :lua Snacks.picker.buffers()<CR>
 nnoremap <silent>grr   :lua Snacks.picker.lsp_references()<CR>
 nnoremap <silent>gd    :lua Snacks.picker.lsp_definitions()<CR>
 nnoremap <silent>gI    :lua Snacks.picker.lsp_implementations()<CR>
+nnoremap <silent>ca    :lua vim.lsp.buf.code_action()<CR>
 
 " obsidian.nvim
 " nnoremap <silent><C-o> :Obsidian<CR>
