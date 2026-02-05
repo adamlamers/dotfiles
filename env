@@ -1,0 +1,7 @@
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+export HISTFILESIZE=200000
+export HISTSIZE=10000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE="&:ls:[bf]g:exit"

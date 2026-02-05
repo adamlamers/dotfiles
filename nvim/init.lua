@@ -16,7 +16,6 @@ Plug("mason-org/mason.nvim")
 Plug("mason-org/mason-lspconfig.nvim")
 Plug("nvim-treesitter/nvim-treesitter")
 Plug("ray-x/lsp_signature.nvim")
-Plug("obsidian-nvim/obsidian.nvim")
 Plug("folke/snacks.nvim")
 Plug("stevearc/conform.nvim")
 Plug_End()
@@ -95,21 +94,6 @@ require("lsp_signature").setup({
         current = "← ",
         below = "↖ ",
     }
-})
-
-require("obsidian").setup({
-    ft = "markdown",
-    legacy_commands = false,
-    workspaces = {
-        {
-            name = "personal",
-            path = "~/notes/personal",
-        },
-        {
-            name = "work",
-            path = "~/notes/work",
-        }
-    },
 })
 
 require("snacks").setup({

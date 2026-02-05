@@ -12,16 +12,12 @@
     ~/.vim: vim
     ~/.dotfile_util: util
     ~/.vimrc: vimrc
-    ~/.zpreztorc: zpreztorc
     ~/.zshrc: zshrc
-    ~/.zprezto: prezto
     ~/.bash_profile: bash_profile
-    ~/.bash_prompt: bash_prompt
-    ~/.git_prompt.sh: git_prompt.sh
-    ~/.git-completion.bash: git-completion.bash
+    ~/.bashrc: bashrc
+    ~/.env: env
     ~/.dictionary.txt.gz: dictionary.txt.gz
     ~/.common_shell_functions: common_shell_functions
-    ~/.zsh: zsh
     ~/.config/nvim: nvim
     ~/.local/share/nvim/site/autoload/plug.vim: local/share/nvim/site/autoload/plug.vim
 
