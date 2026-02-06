@@ -66,22 +66,13 @@ endif
 "Plugins
 call plug#begin()
 Plug 'preservim/nerdtree'
-Plug 'tmhedberg/SimpylFold'
-Plug 'tpope/vim-fugitive'
 Plug 'sainnhe/gruvbox-material'
-Plug 'kien/ctrlp.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-snippets'
 Plug 'pangloss/vim-javascript'
 Plug 'neoclide/vim-jsx-improve'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 Plug 'ap/vim-buftabline'
-Plug 'adamlamers/terminal-drawer.vim'
 call plug#end()
 
 "Colorscheme
@@ -109,54 +100,12 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <leader>d <Plug>(coc-definition)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>D :CocDiagnostics<CR>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Suggestion navigation
-inoremap <silent><expr> <C-f> coc#refresh()
-inoremap <silent><expr> <C-e> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-
-nnoremap <silent> K :call ShowDocumentation()<CR>
-nnoremap <nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1, 1) : "<C-j>"
-nnoremap <nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0, 1) : "<C-k>"
-
-" Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code
-xmap <leader>=  <Plug>(coc-format-selected)
-nmap <leader>=  <Plug>(coc-format-selected)
-
-let g:coc_disable_transparent_cursor=1
-
-"SimpylFold Config
-let g:SimpylFold_docstring_preview=1
-
 "NERDTree keybinds
 nmap <leader>g :NERDTreeFind<CR>
 nmap <leader>e :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['__pycache__', '\.pyc$', '\.egg-info$', 'node_modules']
 " prevent changing buffer in NERDtree window
 autocmd BufWinLeave * if &filetype == 'nerdtree' | call interrupt() | endif
-
-"CtrlP config
-nmap <C-E> :CtrlPBuffer<CR>
-nmap <C-p> :CtrlP<CR>
-let g:ctrlp_working_path_mode= 0
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|\.egg-info|\.pyc'
-
-"fzf keybinds
-let $FZF_DEFAULT_COMMAND = 'rg --files -g "!node_modules/"'
-nmap <C-F> :FZF<CR>
-nmap <C-G> :Rg<CR>
 
 "Wildignore
 set wildignore+=*/node_modules/*,*/__pycache__/*,*.pyc,*.egg-info
@@ -176,6 +125,3 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
-
-" Terminal drawer options
-let g:terminal_drawer_start_nobuflisted = 1
