@@ -13,9 +13,16 @@
     ~/.dotfile_util: util
     ~/.dotfiles: ''
     ~/.env: env
-    ~/.vim: vim
     ~/.vimrc: vimrc
     ~/.zshrc_default: zshrc
 
 - shell:
+    -
+      command: [if -z "~/.bashrc" -o ! grep -qxF "source ~/.bashrc_default" "~/.bashrc"; then echo "source ~/.bashrc_default" >> "~/.bashrc"; fi]
+      description: "Add source ~/.bashrc_default to ~/.bashrc (or create it)"
+      quiet: true
+    -
+      command: [if -z "~/.zshrc" -o ! grep -qxF "source ~/.zshrc_default" "~/.zshrc"; then echo "source ~/.zshrc_default" >> "~/.zshrc"; fi]
+      description: "Add source ~/.zshrc_default to ~/.zshrc (or create it)"
+      quiet: true
     - [git submodule update --init --recursive, Installing submodules]
