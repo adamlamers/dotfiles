@@ -4,22 +4,18 @@
 
 - clean: ['~']
 
-- create:
-  - ~/.local/share/nvim/site/autoload/
-
 - link:
-    ~/.dotfiles: ''
-    ~/.vim: vim
-    ~/.dotfile_util: util
-    ~/.vimrc: vimrc
-    ~/.zshrc: zshrc
     ~/.bash_profile: bash_profile
-    ~/.bashrc: bashrc
-    ~/.env: env
-    ~/.dictionary.txt.gz: dictionary.txt.gz
+    ~/.bashrc_default: bashrc
     ~/.common_shell_functions: common_shell_functions
     ~/.config/nvim: nvim
-    ~/.local/share/nvim/site/autoload/plug.vim: local/share/nvim/site/autoload/plug.vim
+    ~/.dictionary.txt.gz: dictionary.txt.gz
+    ~/.dotfile_util: util
+    ~/.dotfiles: ''
+    ~/.env: env
+    ~/.vim: vim
+    ~/.vimrc: vimrc
+    ~/.zshrc_default: zshrc
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
