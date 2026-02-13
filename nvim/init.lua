@@ -5,9 +5,8 @@ vim.opt.termguicolors = true
 local data_dir = vim.fn.stdpath('data')
 if vim.fn.empty(vim.fn.glob(data_dir .. '/site/autoload/plug.vim')) == 1 then
     vim.cmd('silent !curl -fLo ' ..
-    data_dir ..
-    '/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
-    vim.o.runtimepath = vim.o.runtimepath
+        data_dir ..
+        '/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim')
     vim.cmd('autocmd VimEnter * PlugInstall --sync | source $MYVIMRC')
 end
 
@@ -26,13 +25,14 @@ Plug("mason-org/mason-lspconfig.nvim")
 Plug("nvim-treesitter/nvim-treesitter")
 Plug("ray-x/lsp_signature.nvim")
 Plug("folke/snacks.nvim")
+Plug("folke/neodev.nvim")
 Plug("stevearc/conform.nvim")
 Plug_End()
 
-vim.cmd.source("$HOME/.config/nvim/binds.vim")
-vim.cmd.source("$HOME/.config/nvim/sys.vim")
-vim.cmd.colorscheme("gruvbox-material")
+require("binds")
+require("sys")
 
+vim.cmd.colorscheme("gruvbox-material")
 vim.opt.completeopt = { 'menu', 'menuone', 'noinsert' }
 
 vim.api.nvim_create_autocmd('LspAttach', {
