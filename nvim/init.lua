@@ -27,6 +27,7 @@ Plug("ray-x/lsp_signature.nvim")
 Plug("folke/snacks.nvim")
 Plug("folke/neodev.nvim")
 Plug("stevearc/conform.nvim")
+Plug("kylechui/nvim-surround")
 Plug_End()
 
 require("binds")
@@ -98,11 +99,25 @@ require('nvim-treesitter').setup({
 })
 
 require("lsp_signature").setup({
-    hint_prefix = {
-        above = "↙ ",
-        current = "← ",
-        below = "↖ ",
-    }
+    bind = true,
+
+    floating_window = true,
+    floating_window_above_cur_line = true,
+
+    hint_enable = false,
+    hint_prefix = "",
+    handler_opts = {
+        border = "rounded"
+    },
+    toggle_key = "<C-k>", -- Press Ctrl+k to toggle signature help
+    trigger_on_newline = false,
+    hi_parameter = "LspSignatureActiveParameter",
+    max_height = 12,
+    max_width = 80,
+
+    always_trigger = false,
+    auto_close_after = nil,
+    extra_trigger_chars = { ")" }, -- Empty to not auto-trigger
 })
 
 require("snacks").setup({
@@ -144,3 +159,5 @@ require("conform").setup({
         timeout_ms = 500,
     },
 })
+
+require("nvim-surround").setup()
